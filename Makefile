@@ -1,6 +1,7 @@
 ddb := duckdb -init '' -line -c
 $(VERBOSE).SILENT:
-.PHONY: solution0 solution1 solution2 solutions clean
+.PHONY: solution0 solution1 solution2 
+.PHONY: solutions clean
 
 solution0.csv: puzzle0.sql
 	$(ddb) ".read puzzle0.sql" 
