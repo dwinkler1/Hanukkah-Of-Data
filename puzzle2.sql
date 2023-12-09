@@ -1,5 +1,7 @@
+.mode csv
+.output solution2.csv
 SELECT DISTINCT
-    name, phone 
+    name, phone, citystatezip
 FROM (
         SELECT
             customerid,
@@ -13,6 +15,7 @@ FROM (
         SELECT 
             name, phone,
             customerid, 
+            citystatezip,
             split(name, ' ') as n
         FROM read_json_auto('noahs-customers.jsonl.gz')
         WHERE n[1][1] == 'J'

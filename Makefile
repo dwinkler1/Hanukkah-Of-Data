@@ -23,15 +23,25 @@ solution1: puzzle1.sql 5784
 	@echo "----------"
 	$(ddb) ".read $<"
 
-solution2: puzzle2.sql 5784
-	@echo "\nSolution 2"
-	@echo "----------"
+solution2.csv: puzzle2.sql 5784
 	$(ddb) ".read $<"
 
-solution3: #puzzle3.sql 5784
+solution2: solution2.csv
+	@echo "\nSolution 2"
+	@echo "----------"
+	@echo " name = $(shell tail -n1 $< | cut -d, -f1)"
+	@echo "phone = $(shell tail -n1 $< | cut -d, -f2)"
+
+aux_chinese_zodiac.jsonl: chinese_zodiac.sql
+	$(ddb) ".read $<"
+
+aux_astrological_signs.jsonl: astrological_signs.sql
+	$(ddb) ".read $<"
+
+solution3: puzzle3.sql solution2.csv aux_chinese_zodiac.jsonl aux_astrological_signs.jsonl 5784
 	@echo "\nSolution 3"
 	@echo "----------"
-#	$(ddb) ".read $<"
+	$(ddb) ".read $<"
 
 solution4: #puzzle4.sql 5784
 	@echo "\nSolution 4"
@@ -63,5 +73,6 @@ solutions: solution0 solution1 solution2 solution3 solution4 solution5 solution6
 clean:
 	rm -rf 5784
 	rm -f noahs-*.jsonl.gz
-	rm -f solution0.csv
+	rm -f solution*.csv
+	rm -f aux*.jsonl
 
