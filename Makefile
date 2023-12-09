@@ -1,3 +1,4 @@
+data_link := https://hanukkah.bluebird.sh/5784/noahs-jsonl.zip
 ddb := duckdb -init '' -line -c
 $(VERBOSE).SILENT:
 .PHONY: solution0 solution1 solution2 solution3 solution4 solution5 solution6 solution7 solution8
@@ -7,7 +8,7 @@ solution0.csv: puzzle0.sql
 	$(ddb) ".read $<" 
 
 5784: solution0.csv
-	wget https://hanukkah.bluebird.sh/5784/noahs-jsonl.zip
+	wget $(data_link)
 	unzip -P $(shell tail -n1 $<) noahs-jsonl.zip
 	gzip -9 5784/noahs-*.jsonl
 	rm noahs-jsonl.zip
