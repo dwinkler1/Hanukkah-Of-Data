@@ -44,10 +44,10 @@ solution3: puzzle3.sql solution2.csv aux_chinese_zodiac.jsonl aux_astrological_s
 	@echo "----------"
 	$(ddb) ".read $<"
 
-solution4: #puzzle4.sql 5784
+solution4: puzzle4.sql 5784
 	@echo "\nSolution 4"
 	@echo "----------"
-#	$(ddb) ".read $<"
+	$(ddb) ".read $<"
 
 solution5: #puzzle5.sql 5784
 	@echo "\nSolution 5"
