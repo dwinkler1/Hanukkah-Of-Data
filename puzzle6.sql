@@ -22,6 +22,5 @@ with orders AS (
 SELECT
     name, phone, customerid
 FROM read_json_auto('noahs-customers.jsonl.gz')
-JOIN cust_id_sol
-USING(customerid)
+WHERE customerid = (FROM cust_id_sol)
 ;

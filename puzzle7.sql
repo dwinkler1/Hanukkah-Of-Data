@@ -32,7 +32,7 @@ with orders AS (
 SELECT
     name, phone
 FROM read_json_auto('noahs-customers.jsonl.gz')
-JOIN (
+WHERE customerid = (
     SELECT
         argMin(o.customerid, abs(date_diff('minute', h.ordered, o.ordered))) as customerid,
     FROM her_orders h
@@ -40,5 +40,4 @@ JOIN (
         USING(item)
     WHERE o.color != h.color
 ) 
-USING(customerid)
 ;

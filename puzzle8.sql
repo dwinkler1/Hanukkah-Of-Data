@@ -24,5 +24,4 @@ with noahs_coll AS (
 SELECT 
     name, phone
 FROM read_json_auto('noahs-customers.jsonl.gz')
-JOIN noahs_orders
-USING(customerid);
+WHERE customerid = (FROM noahs_orders);
