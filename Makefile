@@ -49,25 +49,29 @@ solution4: puzzle4.sql 5784
 	@echo "----------"
 	$(ddb) ".read $<"
 
-solution5: #puzzle5.sql 5784
+solution5: puzzle5.sql 5784
 	@echo "\nSolution 5"
 	@echo "----------"
-#	$(ddb) ".read $<"
+	$(ddb) ".read $<"
 
-solution6: #puzzle6.sql 5784
+solution6.csv: puzzle6.sql 5784
+	$(ddb) ".read $<"
+
+solution6: solution6.csv
 	@echo "\nSolution 6"
 	@echo "----------"
-#	$(ddb) ".read $<"
+	@echo " name = $(shell tail -n1 $< | cut -d, -f1)"
+	@echo "phone = $(shell tail -n1 $< | cut -d, -f2)"
 
-solution7: #puzzle7.sql 5784	
+solution7: puzzle7.sql 5784	
 	@echo "\nSolution 7"
 	@echo "----------"
-#	$(ddb) ".read $<"
+	$(ddb) ".read $<"
 
-solution8: #puzzle8.sql 5784
+solution8: puzzle8.sql 5784
 	@echo "\nSolution 8"
 	@echo "----------"
-#	$(ddb) ".read $<"
+	$(ddb) ".read $<"
 
 solutions: solution0 solution1 solution2 solution3 solution4 solution5 solution6 solution7 solution8
 
