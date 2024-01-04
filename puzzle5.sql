@@ -1,3 +1,4 @@
+CREATE MACRO solution5(CITY, ANIMAL) AS TABLE
 WITH orders AS (
     SELECT
         * EXCLUDE(items),
@@ -10,14 +11,14 @@ WITH orders AS (
 SELECT
     name, phone
 FROM orders 
-WHERE starts_with(citystatezip, 'Staten Island')
+WHERE starts_with(lower(citystatezip), lower(CITY))
 AND item.sku IN (
     SELECT 
         sku
     FROM read_json_auto('noahs-products.jsonl.gz')
-    WHERE contains(lower("desc"), 'cat')
+    WHERE contains(lower("desc"), lower(ANIMAL))
 )
 GROUP BY name, phone
 ORDER BY sum(item.qty) DESC
 LIMIT 1;
-
+FROM solution5('Staten Island', 'cat');
