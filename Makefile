@@ -1,7 +1,8 @@
 data_link := https://hanukkah.bluebird.sh/5784/noahs-jsonl.zip
 ddb := duckdb -init '' -line -c
 $(VERBOSE).SILENT:
-.PHONY: solution0 solution1 solution2 solution3 solution4 solution5 solution6 solution7 solution8
+sols := $(patsubst %, solution%, 1 2 3 4 5 6 7 8)
+.PHONY: $(sols)
 .PHONY: solutions clean
 
 solution0.csv: puzzle0.sql
@@ -73,7 +74,7 @@ solution8: puzzle8.sql 5784
 	@echo "----------"
 	$(ddb) ".read $<"
 
-solutions: solution0 solution1 solution2 solution3 solution4 solution5 solution6 solution7 solution8
+solutions: $(sols)
 
 clean:
 	rm -rf 5784
